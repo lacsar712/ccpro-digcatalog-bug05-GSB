@@ -318,11 +318,7 @@ func (h *Handler) ListFinds(c *gin.Context) {
 		q = q.Where("unit_id = ?", unitID)
 	}
 	if at := c.Query("artifactType"); at != "" {
-		if c.Query("unitId") != "" {
-			q = q.Or("artifact_type = ?", at)
-		} else {
-			q = q.Where("artifact_type = ?", at)
-		}
+		q = q.Where("artifact_type = ?", at)
 	}
 	if err := q.Find(&finds).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

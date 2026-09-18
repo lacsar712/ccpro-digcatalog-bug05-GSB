@@ -162,16 +162,6 @@ async function loadMeta() {
 async function load() {
   error.value = ''
   try {
-    if (filterUnitId.value && filterType.value) {
-      const [byUnit, byType] = await Promise.all([
-        api.get('/finds', { params: { unitId: filterUnitId.value } }),
-        api.get('/finds', { params: { artifactType: filterType.value } })
-      ])
-      const map = new Map()
-      for (const item of [...byUnit.data, ...byType.data]) map.set(item.id, item)
-      list.value = [...map.values()]
-      return
-    }
     const params = {}
     if (filterUnitId.value) params.unitId = filterUnitId.value
     if (filterType.value) params.artifactType = filterType.value
